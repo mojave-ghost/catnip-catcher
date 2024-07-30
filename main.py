@@ -6,9 +6,9 @@ pygame.init()
 
 # Set up the screen
 screen = pygame.display.set_mode((350, 600))
-# Set up an fps
-clock = pygame.time.Clock()
+clock = pygame.time.Clock() # Set up an fps
 
+# define classes
 class Apple:
   def __init__(self, image, position, speed):
     self.image = image
@@ -17,12 +17,32 @@ class Apple:
   def move(self):
     self.rect.y += self.speed
     
+class Heart:
+  def __init__(self, image, position):
+    self.image = image
+    self.rect = self.image.get_rect(topleft = position)
+  def remove(self):
+    self.rect.y += 0.1
+    
+    
 # variables
 speed = 3
 score = 0
+screenWidth = screen.get_width()
 
 # constants
 TILESIZE = 32
+
+# hearts
+heart_image = pygame.image.load('assets/pixel-heart-removebg.png').convert_alpha()
+heart_image = pygame.transform.scale(heart_image, (TILESIZE, TILESIZE))
+hearts = [
+  Heart(heart_image, (screenWidth - 40,10)),
+  Heart(heart_image, (screenWidth - 80,10)),
+  Heart(heart_image, (screenWidth - 120,10)),
+  Heart(heart_image, (screenWidth - 160,10)),
+  Heart(heart_image, (screenWidth - 200,10))
+]
 
 # floor
 floor_image = pygame.image.load('assets/floor.png').convert_alpha()
@@ -38,7 +58,6 @@ player_rect = player_image.get_rect(center = (screen.get_width()//2,
 # apple
 apple_image = pygame.image.load('assets/apple.png').convert_alpha()
 apple_image = pygame.transform.scale(apple_image, (TILESIZE, TILESIZE))
-
 apples = [
   Apple(apple_image, (100,0), 3), 
   Apple(apple_image, (300,0), 3),
@@ -58,9 +77,11 @@ def draw():
   
   for apple in apples:
     screen.blit(apple.image, apple.rect)
+  for heart in hearts:
+    screen.blit(heart.image, heart.rect)
     
   score_text = font.render(f'Score: {score}', True, 'white')
-  screen.blit(score_text, (5,5))
+  screen.blit(score_text, (10,10))
 
 def update():
   global speed
@@ -68,10 +89,16 @@ def update():
   
   keys = pygame.key.get_pressed()
   
+  # player movement
   if keys[pygame.K_LEFT]:
     player_rect.x -= 8
   if keys[pygame.K_RIGHT]:
     player_rect.x += 8
+  if player_rect.left < 0:
+    player_rect.left = 0
+  if player_rect.right > screen.get_width():
+    player_rect.right = screen.get_width()
+ 
     
   # apple movement
   for apple in apples:
@@ -79,13 +106,17 @@ def update():
     if apple.rect.colliderect(floor_rect):
       apples.remove(apple)
       apples.append(Apple(apple_image, (random.randint(50, 300), -50), speed))
+      # if apple hits floor, remove heart
+      if hearts:
+        hearts.pop()
+      if len(hearts) == 0:
+        print('Game Over')
     elif apple.rect.colliderect(player_rect):
       apples.remove(apple)
       apples.append(Apple(apple_image, (random.randint(50, 300), -50), speed))
       speed += 0.1
       score += 1
       pickup.play()
-      
   
 # Game loop
 running = True
