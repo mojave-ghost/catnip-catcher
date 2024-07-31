@@ -29,6 +29,8 @@ class Heart:
 speed = 3
 score = 0
 screenWidth = screen.get_width()
+screenHeight = screen.get_height()
+game_over = True
 
 # constants
 TILESIZE = 32
@@ -70,7 +72,36 @@ pickup.set_volume(0.1)
 # fonts
 font = pygame.font.Font('assets/PixeloidMono.ttf', TILESIZE//2)
 
+def restart_game():
+  global speed
+  global score
+  global game_over
+  global apples
+  global hearts
+  global player_rect
+  
+  speed = 3
+  score = 0
+  game_over = False
+  player_rect = player_image.get_rect(center = (screen.get_width()//2, 
+                                              screen.get_height()-floor_image.get_height()-(player_image.get_height())/2))
+  apples = [
+    Apple(apple_image, (100,0), 3), 
+    Apple(apple_image, (300,0), 3),
+  ]
+  hearts = [
+    Heart(heart_image, (screenWidth - 40,10)),
+    Heart(heart_image, (screenWidth - 80,10)),
+    Heart(heart_image, (screenWidth - 120,10)),
+    Heart(heart_image, (screenWidth - 160,10)),
+    Heart(heart_image, (screenWidth - 200,10))
+  ]
+  
+
 def draw():
+  global screenWidth
+  global screenHeight
+  
   screen.fill('lightblue')
   screen.blit(player_image, player_rect)
   screen.blit(floor_image, floor_rect)
@@ -82,10 +113,24 @@ def draw():
     
   score_text = font.render(f'Score: {score}', True, 'white')
   screen.blit(score_text, (10,10))
+  
+  if game_over:
+    game_over_text = font.render('Game over!', True, 'white')
+    screen.blit(game_over_text, (125, screenHeight / 4))
+    # create a button to restart the game
+    restart_button = pygame.Rect(100, 200, 150, 50)
+    pygame.draw.rect(screen, 'black', restart_button)
+    restart_text = font.render('Restart', True, 'white')
+    screen.blit(restart_text, (138, 215))
+    # restart the game
+    if pygame.mouse.get_pressed()[0]:
+      if restart_button.collidepoint(pygame.mouse.get_pos()):
+        restart_game()
 
 def update():
   global speed
   global score
+  global game_over
   
   keys = pygame.key.get_pressed()
   
@@ -110,7 +155,14 @@ def update():
       if hearts:
         hearts.pop()
       if len(hearts) == 0:
-        print('Game Over')
+        game_over = True
+        speed = 0
+        player_rect.x = 1000
+        player_rect.y = 1000
+        for apple in apples:
+          apple.rect.y = 1000
+        for heart in hearts:
+          heart.rect.y = 1000
     elif apple.rect.colliderect(player_rect):
       apples.remove(apple)
       apples.append(Apple(apple_image, (random.randint(50, 300), -50), speed))
