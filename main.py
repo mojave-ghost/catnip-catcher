@@ -1,6 +1,7 @@
 import pygame
 import sys
 import random
+import images
 
 pygame.init()
 
@@ -24,7 +25,6 @@ class Heart:
   def remove(self):
     self.rect.y += 0.1
     
-    
 # variables
 speed = 3
 score = 0
@@ -35,6 +35,29 @@ game_over_sound_played = False
 
 # constants
 TILESIZE = 32
+
+# load images
+images = images.load_images()
+
+cloud1_1_white = images['cloud1_1_white']
+cloud1_1_gray = images['cloud1_1_gray']
+cloud2_1_white = images['cloud2_1_white']
+cloud2_1_gray = images['cloud2_1_gray']
+cloud2_4_white = images['cloud2_4_white']
+cloud2_4_gray = images['cloud2_4_gray']
+cloud3_4_white = images['cloud3_4_white']
+cloud3_4_gray = images['cloud3_4_gray']
+
+# cloud rects
+cloud1_1_white_rect = cloud1_1_white.get_rect(topleft=(10,10))
+cloud1_1_gray_rect = cloud1_1_gray.get_rect(topleft=(50,50))
+cloud2_1_white_rect = cloud2_1_white.get_rect(topleft=(100,100))
+cloud2_1_gray_rect = cloud2_1_gray.get_rect(topleft=(150,150))
+cloud2_4_white_rect = cloud2_4_white.get_rect(topleft=(200,200))
+cloud2_4_gray_rect = cloud2_4_gray.get_rect(topleft=(250,250))
+cloud3_4_white_rect = cloud3_4_white.get_rect(topleft=(300,300))
+cloud3_4_gray_rect = cloud3_4_gray.get_rect(topleft=(350,350))
+
 
 # hearts
 heart_image = pygame.image.load('assets/pixel-heart-removebg.png').convert_alpha()
@@ -73,7 +96,7 @@ bg_music.play(-1)
 pickup = pygame.mixer.Sound('assets/powerup.mp3')
 pickup.set_volume(0.1)
 drop = pygame.mixer.Sound('assets/pkmn_emerald_drop.wav')
-drop.set_volume(0.1)
+drop.set_volume(0.3)
 game_over_sound = pygame.mixer.Sound('assets/pkmn_emerald_game_over.wav')
 game_over_sound.set_volume(0.1)
 
@@ -114,18 +137,32 @@ def draw():
   global screenWidth
   global screenHeight
   
+  # general 
   screen.fill('lightblue')
   screen.blit(player_image, player_rect)
   screen.blit(floor_image, floor_rect)
   
+  # clouds
+  screen.blit(cloud1_1_white, cloud1_1_white_rect)
+  screen.blit(cloud1_1_gray, cloud1_1_gray_rect)
+  screen.blit(cloud2_1_white, cloud2_1_white_rect)
+  screen.blit(cloud2_1_gray, cloud2_1_gray_rect)
+  screen.blit(cloud2_4_white, cloud2_4_white_rect)
+  screen.blit(cloud2_4_gray, cloud2_4_gray_rect)
+  screen.blit(cloud3_4_white, cloud3_4_white_rect)
+  screen.blit(cloud3_4_gray, cloud3_4_gray_rect)
+  
+  # apples
   for apple in apples:
     screen.blit(apple.image, apple.rect)
   for heart in hearts:
     screen.blit(heart.image, heart.rect)
-    
+  
+  # score
   score_text = font.render(f'Score: {score}', True, 'white')
   screen.blit(score_text, (10,10))
   
+  # game over screen
   if game_over:
     game_over_text = font.render('Game over!', True, 'white')
     screen.blit(game_over_text, (125, screenHeight / 4))
