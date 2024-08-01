@@ -30,7 +30,8 @@ speed = 3
 score = 0
 screenWidth = screen.get_width()
 screenHeight = screen.get_height()
-game_over = True
+game_over = False
+game_over_sound_played = False
 
 # constants
 TILESIZE = 32
@@ -52,8 +53,8 @@ floor_image = pygame.transform.scale(floor_image, (TILESIZE*15, TILESIZE*5))
 floor_rect = floor_image.get_rect(bottomleft=(0,screen.get_height()))
 
 # player
-player_image = pygame.image.load('assets/player_static.png').convert_alpha()
-player_image = pygame.transform.scale(player_image, (TILESIZE, TILESIZE*2))
+player_image = pygame.image.load('assets/cat.png').convert_alpha()
+player_image = pygame.transform.scale(player_image, (TILESIZE*2, TILESIZE*2))
 player_rect = player_image.get_rect(center = (screen.get_width()//2, 
                                               screen.get_height()-floor_image.get_height()-(player_image.get_height())/2))
 
@@ -66,8 +67,15 @@ apples = [
 ]
 
 # sound fx
+bg_music = pygame.mixer.Sound('assets/Sakura-Girl-Motivation.mp3')
+bg_music.set_volume(0.075)
+bg_music.play(-1)
 pickup = pygame.mixer.Sound('assets/powerup.mp3')
 pickup.set_volume(0.1)
+drop = pygame.mixer.Sound('assets/pkmn_emerald_drop.wav')
+drop.set_volume(0.1)
+game_over_sound = pygame.mixer.Sound('assets/pkmn_emerald_game_over.wav')
+game_over_sound.set_volume(0.1)
 
 # fonts
 font = pygame.font.Font('assets/PixeloidMono.ttf', TILESIZE//2)
@@ -79,10 +87,14 @@ def restart_game():
   global apples
   global hearts
   global player_rect
+  global game_over_sound_played
+  
+  bg_music.play(-1)
   
   speed = 3
   score = 0
   game_over = False
+  game_over_sound_played = False
   player_rect = player_image.get_rect(center = (screen.get_width()//2, 
                                               screen.get_height()-floor_image.get_height()-(player_image.get_height())/2))
   apples = [
@@ -131,6 +143,7 @@ def update():
   global speed
   global score
   global game_over
+  global game_over_sound_played
   
   keys = pygame.key.get_pressed()
   
@@ -151,6 +164,7 @@ def update():
     if apple.rect.colliderect(floor_rect):
       apples.remove(apple)
       apples.append(Apple(apple_image, (random.randint(50, 300), -50), speed))
+      drop.play()
       # if apple hits floor, remove heart
       if hearts:
         hearts.pop()
@@ -169,6 +183,13 @@ def update():
       speed += 0.1
       score += 1
       pickup.play()
+  
+  if game_over and not game_over_sound_played:
+    game_over_sound.play()
+    bg_music.stop()
+    game_over_sound_played = True
+  
+  
   
 # Game loop
 running = True
