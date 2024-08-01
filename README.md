@@ -68,5 +68,9 @@ A simple game built using Pygame where the player catches apples falling from th
 ## Credits
 
 	•	Game Development: Waldo Salinas AKA mojabi-geist
+  • Music: Motivation by Sakura Girl | https://soundcloud.com/sakuragirl_official
+            Music promoted by https://www.chosic.com/free-music/all/
+            Creative Commons CC BY 3.0
+            https://creativecommons.org/licenses/by/3.0/
 
 This project was created for educational purposes and as a fun way to learn and practice Pygame.
