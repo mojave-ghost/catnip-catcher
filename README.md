@@ -1,6 +1,6 @@
-# Apple Catcher Game
+# Catnip Catcher Game
 
-A simple game built using Pygame where the player catches apples falling from the top of the screen. The player loses a heart if an apple hits the floor, and the game ends when all hearts are lost.
+A simple game built using Pygame where the player catches catnips falling from the top of the screen. The player loses a heart if an catnip hits the floor, and the game ends when all hearts are lost.
 
 ## Table of Contents
 - [Installation](#installation)
@@ -13,10 +13,10 @@ A simple game built using Pygame where the player catches apples falling from th
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/your-username/apple-catcher-game.git
+   git clone https://github.com/your-username/catnip-catcher-game.git
 2. Navigate the project directory:
     ```sh
-    cd apple-catcher-game
+    cd catnip-catcher-game
 3. Install the required dependencies
 4. Make sure you have the assets floder with all the necessary imgages and sounds
 
@@ -25,8 +25,8 @@ A simple game built using Pygame where the player catches apples falling from th
     ``` sh
     python main.py
 2. Use the left and right arrow keys to move the player left and right.
-3. Catch the falling apples with the player to increase your score.
-4. Avoid missing apples, as they will cause you to lose a heart.
+3. Catch the falling catnips with the player to increase your score.
+4. Avoid missing catnips, as they will cause you to lose a heart.
 5. The game ends when all hearts are lost.
 
 ## Game Mechanics
@@ -36,16 +36,16 @@ A simple game built using Pygame where the player catches apples falling from th
 	•	The player can move left and right using the arrow keys.
 	•	The player cannot move beyond the screen boundaries.
 
-### Apple Movement
+### Catnip Movement
 
-	•	Apples fall from the top of the screen at a constant speed.
-	•	When an apple hits the floor, it is removed, a new apple is spawned at the top, and the player loses a heart.
-	•	When an apple is caught by the player, it is removed, a new apple is spawned at the top, the speed of the apples increases slightly, and the player’s score increases by one.
+	•	Catnips fall from the top of the screen at a constant speed.
+	•	When an catnip hits the floor, it is removed, a new catnip is spawned at the top, and the player loses a heart.
+	•	When an catnip is caught by the player, it is removed, a new catnip is spawned at the top, the speed of the catnips increases slightly, and the player’s score increases by one.
 
 ### Hearts
 
 	•	The player starts with 5 hearts.
-	•	A heart is removed each time an apple hits the floor.
+	•	A heart is removed each time an catnip hits the floor.
 	•	The game prints “Game Over” and stops when all hearts are lost.
 
 ## Assets
@@ -55,11 +55,11 @@ A simple game built using Pygame where the player catches apples falling from th
 	•	assets/pixel-heart-removebg.png: Heart image.
 	•	assets/floor.png: Floor image.
 	•	assets/player_static.png: Player image.
-	•	assets/apple.png: Apple image.
+	•	assets/catnip.png: Catnip image.
 
 ## Sounds
 
-	•	assets/powerup.mp3: Sound effect for catching an apple.
+	•	assets/powerup.mp3: Sound effect for catching an catnip.
 
 ## Fonts
 

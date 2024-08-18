@@ -87,8 +87,7 @@ catnips = [
 
 # sound fx
 bg_music = pygame.mixer.Sound('assets/sound-fx/Sakura-Girl-Motivation.mp3')
-bg_music.set_volume(0.075)
-bg_music.play(-1)
+bg_music.set_volume(0.080)
 pickup = pygame.mixer.Sound('assets/sound-fx/powerup.mp3')
 pickup.set_volume(0.1)
 drop = pygame.mixer.Sound('assets/sound-fx/pkmn_emerald_drop.wav')
