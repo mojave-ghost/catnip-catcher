@@ -13,7 +13,7 @@ A simple game built using Pygame where the player catches catnips falling from t
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/your-username/catnip-catcher-game.git
+   git clone https://github.com/your-username/catnip-catcher-game.g
 2. Navigate the project directory:
     ```sh
     cd catnip-catcher-game
