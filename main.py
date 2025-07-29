@@ -40,19 +40,19 @@ TILESIZE = 32
 images = images.load_images()
 
 cloud1_1_white = images['cloud1_1_white']
-cloud1_1_gray = images['cloud1_1_gray']
+cloud1_1_grey = images['cloud1_1_grey']
 cloud2_1_white = images['cloud2_1_white']
-cloud2_1_gray = images['cloud2_1_gray']
+cloud2_1_grey = images['cloud2_1_grey']
 cloud3_4_white = images['cloud3_4_white']
-cloud3_4_gray = images['cloud3_4_gray']
+cloud3_4_grey = images['cloud3_4_grey']
 
 # cloud rects
 cloud1_1_white_rect = cloud1_1_white.get_rect(topleft=(20,150))
-cloud1_1_gray_rect = cloud1_1_gray.get_rect(topleft=(25,155))
+cloud1_1_grey_rect = cloud1_1_grey.get_rect(topleft=(25,155))
 cloud2_1_white_rect = cloud2_1_white.get_rect(topleft=(80,60))
-cloud2_1_gray_rect = cloud2_1_gray.get_rect(topleft=(85,65))
+cloud2_1_grey_rect = cloud2_1_grey.get_rect(topleft=(85,65))
 cloud3_4_white_rect = cloud3_4_white.get_rect(topleft=(220,250))
-cloud3_4_gray_rect = cloud3_4_gray.get_rect(topleft=(225,255))
+cloud3_4_grey_rect = cloud3_4_grey.get_rect(topleft=(225,255))
 
 
 # hearts
@@ -137,11 +137,11 @@ def draw():
   screen.blit(floor_image, floor_rect)
   
   # clouds
-  screen.blit(cloud1_1_gray, cloud1_1_gray_rect)
+  screen.blit(cloud1_1_grey, cloud1_1_grey_rect)
   screen.blit(cloud1_1_white, cloud1_1_white_rect)
-  screen.blit(cloud2_1_gray, cloud2_1_gray_rect)
+  screen.blit(cloud2_1_grey, cloud2_1_grey_rect)
   screen.blit(cloud2_1_white, cloud2_1_white_rect)
-  screen.blit(cloud3_4_gray, cloud3_4_gray_rect)
+  screen.blit(cloud3_4_grey, cloud3_4_grey_rect)
   screen.blit(cloud3_4_white, cloud3_4_white_rect)
   
   # catnips
